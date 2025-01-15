@@ -1,4 +1,7 @@
 import React from 'react'
+import UsersTable from './layout/UsersTable'
+import OffersTable from './layout/OffersTable'
+import ComplaintsTable from './layout/ComplaintsTable'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -97,6 +100,9 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/users', name: 'Users', element: UsersTable },
+  { path: '/offers', name: 'Offers', element: OffersTable },
+  { path: '/complaints', name: 'Complaints', element: ComplaintsTable },
 ]
 
 export default routes
