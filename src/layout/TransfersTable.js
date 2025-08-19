@@ -78,7 +78,7 @@ const TransfersTable = () => {
     <CCol xs={12}>
       <CCard className="mb-4">
         <CCardHeader>
-          <strong>Transactions</strong>
+          <strong>الحوالات</strong>
         </CCardHeader>
         <CCardBody>
           {loading ? (

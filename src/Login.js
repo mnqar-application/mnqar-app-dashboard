@@ -18,7 +18,7 @@ const Login = () => {
     const auth = getAuth()
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      navigate('/dashboard') // or just navigate('/')
+      navigate('/users') // or just navigate('/')
     } catch (err) {
       setError(err.message)
     }

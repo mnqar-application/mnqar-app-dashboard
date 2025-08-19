@@ -90,7 +90,6 @@ const ComplaintsTable = () => {
       )
       setFilteredOffers(filtered)
     } else {
-
       const filtered = offers.filter((offer) => offer.category === selectedCategory)
       setFilteredOffers(filtered)
     }
@@ -223,11 +222,15 @@ const ComplaintsTable = () => {
   return (
     <CCol xs={12}>
       <CCard className="mb-4">
-        <CCardHeader className="d-flex justify-content-between align-items-center">
+        <CCardHeader>
+  <strong>البلاغات</strong>
+</CCardHeader>
+
+        {/* <CCardHeader className="d-flex justify-content-between align-items-center">
           <strong>البلاغات</strong>
           <CTableHeaderCell onClick={() => sortByField('defendant')}>
             Defendant {sortOrder === 'asc' ? '▲' : '▼'}
-          </CTableHeaderCell>
+          </CTableHeaderCell> */}
 
           {/* <CTableHeaderCell onClick={() => sortByField('defendant')}>
   Defendant {sortOrder === 'asc' ? '▲' : '▼'}
@@ -261,7 +264,7 @@ const ComplaintsTable = () => {
       Sort by Defendant ({sortByDefendantOrder === 'asc' ? 'Asc' : 'Desc'})
     </CButton> */}
           {/* </div> */}
-        </CCardHeader>
+        {/* </CCardHeader> */}
 
         {/* </CCardHeader> */}
 
