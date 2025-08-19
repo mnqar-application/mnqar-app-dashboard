@@ -16,7 +16,10 @@ import {
   cilStar,
   cilUser,
   cilBug,
-  cilCart
+  cilCart,
+  cilDollar,
+  cilCreditCard,
+  cilTransfer,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -38,6 +41,12 @@ const _nav = [
     name: 'البلاغات',
     to: '/complaints',
     icon: <CIcon icon={cilBug} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'الحوالات',
+    to: '/transfers',
+    icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
   },
   // {
   //   component: CNavItem,

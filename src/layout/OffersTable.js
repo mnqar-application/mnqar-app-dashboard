@@ -214,7 +214,7 @@ const OffersTable = () => {
                     <CTableRow key={offer.id} onClick={() => handleRowToggle(offer.id)}>
                       <CTableHeaderCell>{index + 1}</CTableHeaderCell>
                       <CTableDataCell>{offer.id || 'N/A'}</CTableDataCell>
-                      <CTableDataCell>{offer.seller || 'N/A'}</CTableDataCell>
+                      <CTableDataCell>{offer.sellerData?.sellerPhone || 'N/A'}</CTableDataCell>
                       <CTableDataCell>{offer.title || 'N/A'}</CTableDataCell>
                       {/* <CTableDataCell>
                         {offer.category === 'صوص'

@@ -2,6 +2,7 @@ import React from 'react'
 import UsersTable from './layout/UsersTable'
 import OffersTable from './layout/OffersTable'
 import ComplaintsTable from './layout/ComplaintsTable'
+import TransfersTable from './layout/TransfersTable'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -103,6 +104,7 @@ const routes = [
   { path: '/users', name: 'Users', element: UsersTable },
   { path: '/offers', name: 'Offers', element: OffersTable },
   { path: '/complaints', name: 'Complaints', element: ComplaintsTable },
+  { path: '/transfers', name: 'Transfers', element: TransfersTable },
 ]
 
 export default routes
