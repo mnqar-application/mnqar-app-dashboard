@@ -3,8 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CFormInput, CInputGroup, CInputGroupText, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../../firebase'
+import { collection, query, where, getDocs } from 'firebase/firestore'
+
+
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 
 const Login = () => {
@@ -12,32 +15,36 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+const handleLogin = async (e) => {
+  e.preventDefault()
+  setError('')
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    setError('')
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    const user = userCredential.user
 
-    if (!email || !password) {
-      setError('Please enter both email and password')
+    const q = query(collection(db, 'users'), where('email', '==', user.email))
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty) {
+      setError('No user record found in Firestore')
+      await signOut(auth)
       return
     }
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
-      const uid = userCredential.user.uid
+    const userData = querySnapshot.docs[0].data()
 
-      const userDoc = await getDoc(doc(db, 'users', uid))
-      if (userDoc.exists()) {
-        const userData = userDoc.data()
-        console.log('User Data:', userData)
-      }
-
-      navigate('/dashboard')
-    } catch (err) {
-      console.error(err)
-      setError('Invalid email or password')
+    if (userData.role !== 'Admin') {
+      setError('Access denied. Admins only.')
+      await signOut(auth)
+      return
     }
+
+    navigate('/dashboard')
+  } catch (err) {
+    setError(err.message)
   }
+}
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -55,12 +62,11 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput
+                       <CFormInput
                         type="email"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        autoComplete="username"
                       />
                     </CInputGroup>
 
@@ -68,12 +74,11 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
-                      <CFormInput
+                       <CFormInput
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        autoComplete="current-password"
                       />
                     </CInputGroup>
 
