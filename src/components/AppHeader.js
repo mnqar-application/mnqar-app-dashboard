@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
@@ -13,6 +12,7 @@ import {
   CNavLink,
   CNavItem,
   useColorModes,
+  CButton,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -24,11 +24,14 @@ import {
   cilMoon,
   cilSun,
 } from '@coreui/icons'
-
+import { getAuth } from 'firebase/auth'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import { auth } from '../firebase'
 
 const AppHeader = () => {
+  const navigate = useNavigate()
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
 
@@ -41,6 +44,13 @@ const AppHeader = () => {
         headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     })
   }, [])
+
+const handleLogout = () => {
+  auth.signOut()
+  dispatch({ type: 'LOGOUT' })
+  navigate('/login')
+}
+
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
@@ -65,7 +75,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav> */}
         <CHeaderNav className="ms-auto">
-          <CNavItem>
+          {/* <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
@@ -79,8 +89,12 @@ const AppHeader = () => {
             <CNavLink href="#">
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
+        <CButton color="danger" onClick={handleLogout}>
+  Logout
+</CButton>
+
         <CHeaderNav>
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>

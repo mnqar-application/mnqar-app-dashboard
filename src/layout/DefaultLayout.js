@@ -3,8 +3,18 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/inde
 import OffersTable from './OffersTable'
 import UsersTable from './UsersTable'
 import ComplaintsTable from './ComplaintsTable'
-
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 const DefaultLayout = () => {
+
+   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' })
+    navigate('/login')
+  }
+
   return (
     <div>
       <AppSidebar />
