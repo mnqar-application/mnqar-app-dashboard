@@ -4,6 +4,7 @@ import { auth, db } from '../../../firebase'
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth'
 import { collection, query, where, getDocs, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import bcrypt from 'bcryptjs'
 
 const ResetPassword = () => {
   const [currentPassword, setCurrentPassword] = useState('')
@@ -41,27 +42,28 @@ const handleSubmit = async (e) => {
     // Update password in Auth
     await updatePassword(user, newPassword.trim())
 
-    // Update Firestore record by email
+    // Update Firestore record by email with hashed password
     const usersRef = collection(db, 'users')
     const q = query(usersRef, where('email', '==', user.email))
     const querySnapshot = await getDocs(q)
 
     if (!querySnapshot.empty) {
       const docRef = querySnapshot.docs[0].ref
+      const hashedPassword = bcrypt.hashSync(newPassword.trim(), 10)
       await updateDoc(docRef, {
-        password: newPassword.trim(),
-        passwordUpdatedAt: serverTimestamp()
+        password: hashedPassword,
+        passwordUpdatedAt: serverTimestamp(),
       })
     } else {
       console.warn('No Firestore document found for this email.')
     }
 
     alert('Password updated successfully!')
-
   } catch (err) {
     alert('Error updating password or Firestore: ' + err.message)
   }
 }
+
 
 
   return (
