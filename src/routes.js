@@ -7,6 +7,7 @@ import TransfersTable from './layout/TransfersTable'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
+const ResetPassword = React.lazy(() => import('./views/pages/reset-password/ResetPassword'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -105,6 +106,7 @@ const routes = [
   { path: '/offers', name: 'Offers', element: OffersTable },
   { path: '/complaints', name: 'Complaints', element: ComplaintsTable },
   { path: '/transfers', name: 'Transfers', element: TransfersTable },
+  { path: '/reset-password', name: 'Reset Password', element: ResetPassword },
 ]
 
 export default routes

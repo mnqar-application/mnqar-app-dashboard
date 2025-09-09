@@ -50,6 +50,9 @@ const handleLogout = () => {
   dispatch({ type: 'LOGOUT' })
   navigate('/login')
 }
+const handleReset = () => {
+  navigate('/reset-password')
+}
 
 
   return (
@@ -91,8 +94,11 @@ const handleLogout = () => {
             </CNavLink>
           </CNavItem> */}
         </CHeaderNav>
-        <CButton color="danger" onClick={handleLogout}>
+        <CButton color="danger" onClick={handleLogout}className="me-2">
   Logout
+</CButton>
+        <CButton color="warning" onClick={handleReset}>
+  Reset Password
 </CButton>
 
         <CHeaderNav>
